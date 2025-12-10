@@ -1,0 +1,128 @@
+QWidget {
+  background-color: #0b1020;
+  color: #e2e8f0;
+}
+
+QLineEdit {
+  padding: 8px 12px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #0f172a;
+  selection-background-color: #1d4ed8;
+  selection-color: #ffffff;
+}
+
+QLineEdit:focus {
+  border-color: #60a5fa;
+}
+
+QPushButton {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+QPushButton:hover {
+  background: #263445;
+}
+
+QPushButton:pressed {
+  background: #1b2433;
+}
+
+#primaryButton {
+  background: #3b82f6;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+}
+
+#primaryButton:hover {
+  background: #2563eb;
+}
+
+#primaryButton:pressed {
+  background: #1d4ed8;
+}
+
+#linkButton {
+  background: transparent;
+  border: none;
+  color: #93c5fd;
+}
+
+#linkButton:hover {
+  color: #bfdbfe;
+  text-decoration: underline;
+}
+
+#headerTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+QListWidget {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+QListWidget::item {
+  padding: 0;
+  margin: 0;
+  border-radius: 6px;
+}
+
+QListWidget::item:hover {
+  background: #162137;
+}
+
+QListWidget::item:selected {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Цветные бейджи статусов задач */
+QLabel#statusBadge {
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 12px;
+  min-width: 63px;
+  min-height: 12px;
+
+  qproperty-alignment: AlignCenter;
+}
+
+QLabel#statusBadge[status="Done"] {
+  background: #14532d;
+  border: 1px solid #15803d;
+  color: #86efac;
+}
+
+QLabel#statusBadge[status="InProgress"] {
+  background: rgba(234, 179, 8, 0.18); /* мягкий янтарный фон */
+  border: 1px solid #eab308;          /* янтарная рамка */
+  color: #fde047;                      /* светло‑янтарный текст */
+}
+
+QLabel#statusBadge[status="InProject"] {
+  background: #450a0a;
+  border: 1px solid #b91c1c;
+  color: #f87171;
+}
+
+/* Вертикальные разделители между статусом, заголовком и описанием */
+QWidget#vSeparator {
+  background: #334155;
+}
+
+/* Дополнительные стили текста */
+QLabel#taskTitle {
+  font-weight: 600;
+}
+QLabel#taskDescription {
+  color: #cbd5e1;
+}
