@@ -13,6 +13,7 @@ services:
 
   flyway:
     image: flyway/flyway:latest
+    command: migrate
     depends_on:
       db:
         condition: service_healthy
@@ -32,6 +33,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+    hostname: ${DB_HOST}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

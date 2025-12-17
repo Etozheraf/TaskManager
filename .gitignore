@@ -4,6 +4,8 @@
 cmake-build-debug
 cmake-build-debug-wsl
 build
+build_release
+release_bin
 
 .cache
 
