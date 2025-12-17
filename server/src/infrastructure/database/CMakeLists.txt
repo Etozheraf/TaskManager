@@ -23,4 +23,6 @@ target_include_directories(database
 target_link_libraries(database PUBLIC
         domain
         ${PQXX_LIBRARIES}
+        Boost::log
+        Boost::log_setup
         )

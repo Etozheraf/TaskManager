@@ -1,39 +1,51 @@
-version: '3.8'
-
 services:
   app:
     build: .
     ports:
-      - "${APP_HOST_PORT}:${APP_PORT}"
-    volumes:
-      - .:/app
+      - "${APP_PORT}:${APP_PORT}"
     depends_on:
-      - db
+      flyway:
+        condition: service_completed_successfully
     environment:
       - DB_CONNECTION_STRING=${DB_CONNECTION_STRING}
-
-  db:
-    image: ${DB_IMAGE}
-    ports:
-      - "${DB_HOST_PORT}:${DB_PORT}"
-    environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
+    networks:
+      - postgres_network
 
   flyway:
     image: flyway/flyway:latest
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./migrations:/flyway/sql
+    networks:
+      - postgres_network
     environment:
       - FLYWAY_URL=jdbc:postgresql://db:${DB_PORT}/${DB_NAME}
       - FLYWAY_USER=${DB_USER}
       - FLYWAY_PASSWORD=${DB_PASSWORD}
       - FLYWAY_LOCATIONS=filesystem:/flyway/sql
 
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
 volumes:
   postgres_data:
+
+
+networks:
+  postgres_network:
